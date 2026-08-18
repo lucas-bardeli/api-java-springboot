@@ -1,8 +1,11 @@
 package io.github.lucas_bardeli.api_java_springboot.task;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +21,22 @@ public class TaskController {
   private ITaskRepository taskRepository;
 
   @PostMapping("/")
-  public TaskModel create(@RequestBody TaskModel taskModel, HttpServletRequest request) {
+  public ResponseEntity<?> create(@RequestBody TaskModel taskModel, HttpServletRequest request) {
     var idUser = request.getAttribute("idUser");
     taskModel.setIdUser((UUID) idUser);
+
+    var currentDate = LocalDateTime.now();
+
+    if (currentDate.isAfter(taskModel.getStartAt()) || currentDate.isAfter(taskModel.getEndAt()))
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .body("A data de ínicio/término deve ser maior do que a data atual!");
+
+    if (taskModel.getStartAt().isAfter(taskModel.getEndAt()))
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .body("A data de ínicio deve ser menor do que a data de término!");
+
     var taskCreated = this.taskRepository.save(taskModel);
-    return taskCreated;
+    return ResponseEntity.status(HttpStatus.CREATED).body(taskCreated);
   }
 
 }
