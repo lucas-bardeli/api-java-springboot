@@ -10,7 +10,7 @@ autenticação JWT com Spring Security e deploy na plataforma Render.
 [![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker\&logoColor=white)](https://www.docker.com/)
 [![Render](https://img.shields.io/badge/Render-46E3B7?logo=render\&logoColor=black)](https://render.com/)
 
-## ✨ Features
+## ✨ Funcionalidades
 
 * 👤 Cadastro de usuários
 * 🔐 Autenticação e autorização
@@ -20,7 +20,7 @@ autenticação JWT com Spring Security e deploy na plataforma Render.
 * 🐳 Containerização com Docker
 * ☁️ Deploy no Render
 
-## 🛠️ Technologies
+## 🛠️ Tecnologias
 
 * Java 17
 * Spring Boot
@@ -31,7 +31,7 @@ autenticação JWT com Spring Security e deploy na plataforma Render.
 * Docker
 * Render
 
-## ▶️ Rodando localmente
+## ▶️ Rodando Localmente
 
 ```bash
 mvn spring-boot:run
